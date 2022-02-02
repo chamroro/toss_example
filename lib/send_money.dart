@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:toss_example/theme/colors.dart';
 import 'package:toss_example/theme/text_style.dart';
 
+// ignore: must_be_immutable
 class SendMoneyPage extends StatelessWidget {
+
   SendMoneyPage({Key? key}) : super(key: key);
+  
   var bankImage=['bank_nong','bank_KB','bank_kakaobank','bank_shinhan','bank_woori','bank_IBK','bank_hana','bank_sae'];
   var bankName=['NH농협','KB국민','카카오뱅크','신한','우리','IBK기업','하나','새마을'];
   var investImage=['bank_nong','stock_korea','bank_shinhan','bank_hana','stock_kium','stock_mirae','bank_KB'];
@@ -19,14 +22,18 @@ class SendMoneyPage extends StatelessWidget {
           Text('어디로 돈을 보낼까요?',
             style: heading4style(color: black),
           ),
-          SizedBox(height: 44,),
-          GridView.count(
+          const SizedBox(height: 44),
+          GridView.builder(
             shrinkWrap: true,
-            crossAxisCount: 3,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 9,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 9,
+              mainAxisExtent: 87, 
+            ),
             padding: EdgeInsets.zero,
-            children: List.generate(8, (index) {
+            itemCount: 8,
+            itemBuilder: (BuildContext context, index) {
               return Container(
                 width: 103,
                 height: 87,
@@ -51,18 +58,22 @@ class SendMoneyPage extends StatelessWidget {
                   )
                 ),
               );
-            })
-          ),
+            }),
+   
           const SizedBox(height: 34),
           Text('증권사 선택',style: subtitle1style(color: grey[800]),),
           const SizedBox(height: 11),
-          GridView.count(
+          GridView.builder(
             shrinkWrap: true,
-            crossAxisCount: 3,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 9,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 9,
+              mainAxisExtent: 87, 
+            ),
             padding: EdgeInsets.zero,
-            children: List.generate(7, (index) {
+            itemCount: 7,
+            itemBuilder: (BuildContext context, index) {
               return Container(
                 width: 103,
                 height: 87,
@@ -88,7 +99,6 @@ class SendMoneyPage extends StatelessWidget {
                 ),
               );
             })
-          ),
         ],
       ),
     );

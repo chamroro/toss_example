@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toss_example/send_money.dart';
 import 'package:toss_example/theme/colors.dart';
 import 'package:toss_example/theme/text_style.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,10 +21,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
-  
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +49,96 @@ class MyHomePage extends StatelessWidget {
           const SizedBox(width: 18),
         ],
       ),
-      body: Container(
+      bottomNavigationBar: Container(
+        width: double.maxFinite,
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+          color: grey[200],
+          border: Border.all(color: grey[200]!),
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20.0),
+            topLeft: Radius.circular(20.0),
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(                                           
+            topLeft: Radius.circular(20.0),                                            
+            topRight: Radius.circular(20.0),                                           
+            ),        
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: white,
+            selectedItemColor: grey[900],
+            unselectedItemColor: grey[600],
+            selectedLabelStyle: subtitle3style(),
+            unselectedLabelStyle: subtitle3style(),
+            selectedFontSize: 11,
+            unselectedFontSize: 11,
+            currentIndex: _selectedIndex, //현재 선택된 Index
+            onTap: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(
+                label: '홈',
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4.76),
+                  child: Icon(
+                    Icons.home_outlined,
+                    size: 20
+                  ),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: '혜택',
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4.76),
+                  child: Icon(
+                    MdiIcons.diamond,
+                  ),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: '송금',
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4.76),
+                  child: Icon(
+                    Icons.card_membership_outlined,
+                  ),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: '주식',
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4.76),
+                  child: Icon(
+                    Icons.waterfall_chart_outlined,
+                  ),
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: '전체',
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4.76),
+                  child: Icon(
+                    Icons.menu_outlined,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+    );
+  }
+
+  final List _widgetOptions = [
+    Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -54,7 +150,6 @@ class MyHomePage extends StatelessWidget {
           )
         ),
         child: ListView(
-
           padding: const EdgeInsets.fromLTRB(17, 29, 17, 164),
           children: [
             Section1(),
@@ -68,9 +163,24 @@ class MyHomePage extends StatelessWidget {
             )
           ],
         ),
-      )
-    );
-  }
+      ),
+    const Text(
+      '혜택',
+      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+    ),
+    const Text(
+      '송금',
+      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+    ),
+    const Text(
+      '주식',
+      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+    ),
+    const Text(
+      '전체',
+      style: TextStyle(fontSize: 30, fontFamily: 'DoHyeonRegular'),
+    ),
+  ];
 }
 
 
@@ -154,7 +264,6 @@ class Section1 extends StatelessWidget {
     );
   }
 }
-
 // ignore: must_be_immutable
 class Section2 extends StatelessWidget {
 
@@ -276,7 +385,7 @@ class Section3 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('계좌', style: heading7style(color: const Color(0xff181F29))),
-          const SizedBox(height: 39),
+          const SizedBox(height: 34),
           Row(
             children: [
               Image.asset(
